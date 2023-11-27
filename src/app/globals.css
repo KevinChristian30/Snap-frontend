@@ -8,17 +8,14 @@
   box-sizing: border-box;
 }
 
-.circles {
-  background-color: #e5e5f7;
+.bg-diagonal-lines {
+  background-color: #e3e3e3;
   opacity: 0.8;
-  background-image: radial-gradient(circle at center center, #444cf7, #e5e5f7),
-    repeating-radial-gradient(
-      circle at center center,
-      #444cf7,
-      #444cf7,
-      10px,
-      transparent 20px,
-      transparent 10px
-    );
-  background-blend-mode: multiply;
+  background: repeating-linear-gradient(
+    -45deg,
+    #5D12D2,
+    #5D12D2 20px,
+    #E3E3E3 20px,
+    #E3E3E3 100px
+  );
 }

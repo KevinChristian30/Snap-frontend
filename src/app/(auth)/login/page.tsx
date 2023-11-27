@@ -11,8 +11,8 @@ const page = () => {
   const [form] = Form.useForm();
 
   return (
-    <div className="h-full flex items-center justify-center circles">
-      <div className="w-[400px] p-8 bg-white rounded-xl shadow-lg">
+    <div className="h-full flex items-center justify-center bg-diagonal-lines">
+      <div className="w-[400px] p-8 bg-white rounded-xl shadow-2xl mx-4">
         <Typography.Title>Snap</Typography.Title>
         <Spacer height={gap} />
         <Form
