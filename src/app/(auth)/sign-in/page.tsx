@@ -1,5 +1,6 @@
 "use client";
 
+import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
 import { GoogleOutlined, KeyOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
@@ -11,14 +12,14 @@ const page = () => {
   const [form] = Form.useForm();
 
   return (
-    <div className="h-full flex items-center justify-center bg-diagonal-lines">
-      <div className="w-[400px] p-8 bg-white rounded-xl shadow-2xl mx-4">
-        <Typography.Title>Snap</Typography.Title>
+    <div className="bg-diagonal-lines flex h-full items-center justify-center">
+      <div className="mx-4 flex w-[400px] flex-col items-center justify-center rounded-xl bg-white p-8 shadow-2xl">
+        <Icons.logo className="h-8 w-8" />
         <Spacer height={gap} />
         <Form
           form={form}
           layout="vertical"
-          className="flex flex-col items-center"
+          className="flex flex-col items-center w-full"
         >
           <Form.Item label="Email" className="w-full">
             <Input
