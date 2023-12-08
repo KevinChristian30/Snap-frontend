@@ -13,9 +13,21 @@
   opacity: 0.8;
   background: repeating-linear-gradient(
     -45deg,
-    #5D12D2,
-    #5D12D2 20px,
-    #E3E3E3 20px,
-    #E3E3E3 100px
+    #5d12d2,
+    #5d12d2 20px,
+    #e3e3e3 20px,
+    #e3e3e3 200px
+  );
+}
+
+.bg-lines-reversed {
+  background-color: #e3e3e3;
+  opacity: 0.8;
+  background: repeating-linear-gradient(
+    -45deg,
+    #e3e3e3,
+    #e3e3e3 20px,
+    #5d12d2 20px,
+    #5d12d2 200px
   );
 }
