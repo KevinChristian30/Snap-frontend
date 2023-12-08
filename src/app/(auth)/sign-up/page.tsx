@@ -2,7 +2,7 @@
 
 import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
-import { KeyOutlined, MailOutlined } from "@ant-design/icons";
+import { KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
 import Link from "next/link";
 import React from "react";

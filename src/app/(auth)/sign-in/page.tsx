@@ -4,7 +4,7 @@ import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
 import AuthenticationRequestDTO from "@/dto/AuthenticationRequest.dto";
 import AuthenticationService from "@/service/AuthenticationService";
-import { GoogleOutlined, KeyOutlined, MailOutlined } from "@ant-design/icons";
+import { GoogleOutlined, KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -98,6 +98,7 @@ const Page = () => {
             htmlType="submit"
             block
             size="large"
+            icon={<LoginOutlined />}
             loading={loading}
           >
             Sign In
