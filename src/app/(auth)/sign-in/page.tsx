@@ -2,7 +2,7 @@
 
 import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
-import AuthenticationRequestDTO from "@/dto/AuthenticationRequest.dto";
+import AuthenticationRequestDTO from "@/dto/SignInRequest.dto";
 import AuthenticationService from "@/service/AuthenticationService";
 import { GoogleOutlined, KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";
@@ -52,9 +52,9 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-diagonal-lines flex h-full items-center justify-center">
+    <div className="bg-diagonal-lines flex min-h-screen items-center justify-center">
       {contextHolder}
-      <div className="mx-4 flex w-[400px] flex-col items-center justify-center rounded-xl bg-white p-8 shadow-2xl">
+      <div className="m-4 flex w-[400px] flex-col items-center justify-center rounded-xl bg-white p-8 shadow-2xl">
         <Icons.logo className="h-8 w-8" />
         <Spacer height={gap} />
         <Form
@@ -115,7 +115,7 @@ const Page = () => {
             icon={<GoogleOutlined />}
             disabled={loading}
           >
-            Login with Google
+            Sign In with Google
           </Button>
           <Spacer height={gap} />
           <Typography.Text>

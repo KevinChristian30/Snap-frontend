@@ -8,7 +8,7 @@ import "./globals.css";
 
 const NotFoundPage = () => {
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
+    <div className="flex min-h-screen w-screen items-center justify-center">
       <Empty
         image="/not-found.svg"
         imageStyle={{ height: 160 }}

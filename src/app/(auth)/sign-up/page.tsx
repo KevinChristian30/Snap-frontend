@@ -2,20 +2,77 @@
 
 import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
-import { KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Typography } from "antd";
+import ResponseDTO from "@/dto/Response.dto";
+import SignUpRequestDTO from "@/dto/SignUpRequest.dto";
+import AuthenticationService from "@/service/AuthenticationService";
+import { KeyOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Typography, notification } from "antd";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 
 const gap = 24;
 
 const Page = () => {
+  const [api, contextHolder] = notification.useNotification();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
+
+  const openSignUpFailedErrorNotifications = (errors: string[]) => {
+    errors.forEach((error) => {
+      api.error({
+        message: `Something went wrong`,
+        description: error,
+        placement: "top",
+      });
+    });
+  };
+
+  const openSignUpSuccessNotification = () => {
+    api.success({
+      message: `Account created`,
+      description: "Hang on, we're redirecting you",
+      placement: "top",
+      onClose: () => router.push("/sign-in"),
+      duration: 2,
+    });
+  };
+
+  const signUp = async (dto: SignUpRequestDTO) => {
+    setLoading(true);
+    const response: ResponseDTO<null, string[]> =
+      await AuthenticationService.signUp(dto);
+    setLoading(false);
+
+    if (response.successful) {
+      openSignUpSuccessNotification();
+    } else {
+      openSignUpFailedErrorNotifications(response.failurePayload);
+    }
+  };
+
   return (
-    <div className="bg-lines-reversed flex h-full items-center justify-center">
-      <div className="mx-4 flex w-[400px] flex-col items-center justify-center rounded-xl bg-white p-8 shadow-2xl">
+    <div className="bg-lines-reversed flex min-h-screen items-center justify-center">
+      {contextHolder}
+      <div className="m-4 flex w-[400px] flex-col items-center justify-center rounded-xl bg-white p-8 shadow-2xl">
         <Icons.logo className="h-8 w-8" />
         <Spacer height={gap} />
-        <Form layout="vertical" className="flex w-full flex-col items-center">
+        <Form
+          layout="vertical"
+          className="flex w-full flex-col items-center"
+          disabled={loading}
+          onFinish={(values) => {
+            signUp(
+              new SignUpRequestDTO(
+                values.email,
+                values.firstName,
+                values.password,
+                values.confirmPassword,
+              ),
+            );
+          }}
+        >
           <Form.Item
             name="email"
             label="Email"
@@ -33,11 +90,44 @@ const Page = () => {
             />
           </Form.Item>
           <Form.Item
+            name="firstName"
+            label="First Name"
+            className="w-full"
+            rules={[{ required: true, message: "First name is required" }]}
+          >
+            <Input
+              placeholder="First Name"
+              size="large"
+              prefix={<UserOutlined />}
+              type="text"
+            />
+          </Form.Item>
+          <Form.Item
             name="password"
             label="Password"
             className="w-full"
             rules={[
-              { required: true, message: "Password is required" }
+              { required: true, message: "Password is required" },
+              ({}) => ({
+                validator(_, value) {
+                  if (!value) return Promise.resolve();
+
+                  if (value.length < 8)
+                    return Promise.reject(
+                      new Error("Password must be at least 8 characters long"),
+                    );
+
+                  return value.match(
+                    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{1,}$/,
+                  )
+                    ? Promise.resolve()
+                    : Promise.reject(
+                        new Error(
+                          "Password must contain 1 uppercase letter, 1 lowercase letter, and 1 number",
+                        ),
+                      );
+                },
+              }),
             ]}
           >
             <Input.Password
@@ -75,6 +165,7 @@ const Page = () => {
             htmlType="submit"
             block
             size="large"
+            loading={loading}
           >
             Sign Up
           </Button>
