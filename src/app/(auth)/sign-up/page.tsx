@@ -3,7 +3,7 @@
 import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
 import ResponseDTO from "@/dto/Response.dto";
-import SignUpRequestDTO from "@/dto/SignUpRequest.dto";
+import SignUpRequestDTO from "@/dto/request/SignUpRequest.dto";
 import AuthenticationService from "@/service/AuthenticationService";
 import { KeyOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";

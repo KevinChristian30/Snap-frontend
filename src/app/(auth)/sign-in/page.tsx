@@ -2,7 +2,10 @@
 
 import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
-import AuthenticationRequestDTO from "@/dto/SignInRequest.dto";
+import ResponseDTO from "@/dto/Response.dto";
+import SignInRequestDTO from "@/dto/request/SignInRequest.dto";
+import AuthenticationRequestDTO from "@/dto/request/SignInRequest.dto";
+import SignInResponseDTO from "@/dto/response/SignInResponse.dto";
 import AuthenticationService from "@/service/AuthenticationService";
 import { GoogleOutlined, KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";
@@ -17,15 +20,15 @@ const Page = () => {
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const openLoginFailedNotification = () => {
+  const openSignInFailedNotification = () => {
     api.error({
-      message: `Login Failed`,
-      description: "Invalid email or password, please try again.",
+      message: `Sign in failed`,
+      description: "Invalid credentials, please try again.",
       placement: "top",
     });
   };
 
-  const openLoginSuccessfulNotification = () => {
+  const openSignInSucessfulNotification = () => {
     api.success({
       message: `Login Successful`,
       description: "Hang on tight, we're redirecting you.",
@@ -33,22 +36,17 @@ const Page = () => {
     });
   };
 
-  const login = async (email: string, password: string) => {
-    const dto: AuthenticationRequestDTO = new AuthenticationRequestDTO(
-      email,
-      password,
-    );
+  const signIn = async (dto: SignInRequestDTO) => {
+    setLoading(true);
+    const response: ResponseDTO<SignInResponseDTO | null, string[]> = await AuthenticationService.signIn(dto);
+    setLoading(false);
 
-    // setLoading(true);
-    // const response = await AuthenticationService.login(dto);
-    // setLoading(false);
-
-    // if (response === null) {
-    //   openLoginFailedNotification();
-    // } else {
-    //   openLoginSuccessfulNotification();
-    //   router.push("/");
-    // }
+    if (response.successful && response.successPayload) {
+      openSignInSucessfulNotification();
+      sessionStorage.setItem("token", response.successPayload.token)
+    } else {
+      openSignInFailedNotification();
+    }
   };
 
   return (
@@ -60,7 +58,8 @@ const Page = () => {
         <Form
           layout="vertical"
           className="flex w-full flex-col items-center"
-          onFinish={(values) => login(values.email, values.password)}
+          onFinish={(values) => signIn(new SignInRequestDTO(values.email, values.password))}
+          disabled={loading}
         >
           <Form.Item
             name="email"
@@ -76,7 +75,6 @@ const Page = () => {
               size="large"
               prefix={<MailOutlined />}
               type="email"
-              disabled={loading}
             />
           </Form.Item>
           <Form.Item
@@ -89,7 +87,6 @@ const Page = () => {
               placeholder="Password"
               size="large"
               prefix={<KeyOutlined />}
-              disabled={loading}
             />
           </Form.Item>
           <Spacer height={gap} />
@@ -103,7 +100,7 @@ const Page = () => {
           >
             Sign In
           </Button>
-          <Button type="link" disabled={loading}>
+          <Button type="link" loading={loading}>
             Forgot Password
           </Button>
           <Spacer height={gap} />
@@ -113,7 +110,7 @@ const Page = () => {
             block
             size="large"
             icon={<GoogleOutlined />}
-            disabled={loading}
+            loading={loading}
           >
             Sign In with Google
           </Button>
