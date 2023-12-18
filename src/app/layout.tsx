@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css';
 import { ConfigProvider } from "antd";
 import theme from "@/theme/themeConfig";
 import StyledComponentsRegistry from "@/lib/AntdRegistry";
