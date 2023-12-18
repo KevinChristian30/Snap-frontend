@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.variable}>
+      <body className={poppins.className}>
         <StyledComponentsRegistry>
           <ConfigProvider theme={theme}>
             <div className="min-h-screen w-screen">{children}</div>

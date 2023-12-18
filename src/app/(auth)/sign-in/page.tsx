@@ -4,7 +4,6 @@ import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
 import ResponseDTO from "@/dto/Response.dto";
 import SignInRequestDTO from "@/dto/request/SignInRequest.dto";
-import AuthenticationRequestDTO from "@/dto/request/SignInRequest.dto";
 import SignInResponseDTO from "@/dto/response/SignInResponse.dto";
 import AuthenticationService from "@/service/AuthenticationService";
 import { GoogleOutlined, KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
@@ -33,6 +32,8 @@ const Page = () => {
       message: `Login Successful`,
       description: "Hang on tight, we're redirecting you.",
       placement: "top",
+      duration: 2,
+      onClose: () => {router.push('/');}
     });
   };
 
@@ -42,8 +43,8 @@ const Page = () => {
     setLoading(false);
 
     if (response.successful && response.successPayload) {
+      localStorage.setItem("token", response.successPayload.token);
       openSignInSucessfulNotification();
-      sessionStorage.setItem("token", response.successPayload.token)
     } else {
       openSignInFailedNotification();
     }
