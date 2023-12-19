@@ -31,3 +31,7 @@
     #5d12d2 200px
   );
 }
+
+.border-right-gray {
+  border-right: 1px solid gray;
+}
