@@ -35,7 +35,7 @@ const Page = () => {
       description: "Hang on, we're redirecting you",
       placement: "top",
       onClose: () => router.push("/sign-in"),
-      duration: 2,
+      duration: 1,
     });
   };
 

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import React, { ReactNode, useEffect, useState } from "react";
 import Loading from "../common/Loading";
 
-interface IIsAuthenticatedProps {
+interface IIsAuthenticatedProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode | ReactNode[];
 }
 
@@ -34,7 +34,7 @@ const IsAuthenticated = (props: IIsAuthenticatedProps) => {
     validateToken();
   }, []);
 
-  return <>{loading ? <Loading /> : !response?.successful ? <Loading /> : children}</>;
+  return <>{loading || !(response?.successful) ? <Loading /> : <div {...props}>{children}</div>}</>;
 };
 
 export default IsAuthenticated;
