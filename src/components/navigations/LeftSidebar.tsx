@@ -42,7 +42,7 @@ export const items: MenuProps["items"] = [
 
 const LeftSidebar = (props: ILeftSidebarProps) => {
   return (
-    <div className="border-right-gray sticky left-0 top-0 flex h-screen w-[100px] overflow-y-auto flex-col justify-between p-2 lg:w-[250px]">
+    <div className="border-right-gray sticky left-0 top-0 hidden h-screen w-[100px] overflow-y-auto flex-col justify-between p-2 lg:w-[250px] md:flex">
       <div className="flex items-center gap-2 p-4 hover:cursor-pointer">
         <Icons.logo className="h-8 w-8" />
         <p className="hidden text-xl font-bold lg:block">Snap</p>

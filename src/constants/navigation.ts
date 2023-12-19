@@ -1,4 +1,4 @@
-import { CircleUserRound, LucideBadgePlus, LucideBell, LucideFilm, LucideHome, LucideMessageCircle, LucideSearch } from "lucide-react";
+import { CircleUserRound, LucideBadgePlus, LucideFilm, LucideHeart, LucideHome, LucideMessageCircle, LucideSearch } from "lucide-react";
 
 export const leftSidebarItems = [
   {
@@ -18,7 +18,7 @@ export const leftSidebarItems = [
     text: 'Messages',
     url: '/messages'
   }, {
-    icon: LucideBell,
+    icon: LucideHeart,
     text: 'Notifications',
     url: '/notifications'
   }, {
@@ -32,16 +32,38 @@ export const leftSidebarItems = [
   }
 ];
 
-export const leftSidebarMoreItems = [
+export const topbarItems = [
   {
-    key: 1,
     icon: LucideBadgePlus,
     text: 'Create',
     url: '/create'
   }, {
-    key: 2,
-    icon: LucideBadgePlus,
-    text: 'Create',
-    url: '/create'
+    icon: LucideHeart,
+    text: 'Notifications',
+    url: '/notifications'
+  }
+];
+
+export const bottombarItems = [
+  {
+    icon: LucideHome,
+    text: 'Home',
+    url: '/'
+  }, {
+    icon: LucideSearch,
+    text: 'Search',
+    url: '/explore'
+  }, {
+    icon: LucideFilm,
+    text: 'Snaps',
+    url: '/snaps'
+  }, {
+    icon: LucideMessageCircle,
+    text: 'Messages',
+    url: '/messages'
+  }, {
+    icon: CircleUserRound,
+    text: 'Profile',
+    url: '/profile'
   }
 ]
