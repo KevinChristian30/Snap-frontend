@@ -1,13 +1,12 @@
 import React from "react";
 import LeftSidebarItem from "./LeftSidebarItem";
 import Icons from "../Icons";
-import { Divider, Dropdown, MenuProps } from "antd";
+import { Dropdown, MenuProps } from "antd";
 import {
   Bookmark,
   GanttChartSquare,
   LucideMenu,
   LucideSettings,
-  Moon,
 } from "lucide-react";
 import { leftSidebarItems } from "@/constants";
 import Link from "next/link";
@@ -39,18 +38,14 @@ export const items: MenuProps["items"] = [
       </Link>
     ),
   },
-  {
-    key: "4",
-    label: <LeftSidebarItem Icon={Moon} text="Dark Mode" />,
-  },
 ];
 
 const LeftSidebar = (props: ILeftSidebarProps) => {
   return (
-    <div className="sticky left-0 top-0 flex min-h-screen w-[250px] flex-col justify-between px-4 pb-4 pt-8 border-right-gray">
+    <div className="border-right-gray sticky left-0 top-0 flex h-screen w-[100px] overflow-y-auto flex-col justify-between p-2 lg:w-[250px]">
       <div className="flex items-center gap-2 p-4 hover:cursor-pointer">
         <Icons.logo className="h-8 w-8" />
-        <p className="text-xl font-bold">Snap</p>
+        <p className="hidden text-xl font-bold lg:block">Snap</p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -58,7 +53,8 @@ const LeftSidebar = (props: ILeftSidebarProps) => {
           return <LeftSidebarItem Icon={item.icon} text={item.text} />;
         })}
       </div>
-      <Dropdown menu={{ items }} placement="topLeft">
+
+      <Dropdown menu={{ items }} placement="topLeft" trigger={["click"]}>
         <LeftSidebarItem Icon={LucideMenu} text="More" />
       </Dropdown>
     </div>

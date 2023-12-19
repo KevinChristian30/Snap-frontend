@@ -1,4 +1,4 @@
-import { LucideBadgePlus, LucideBell, LucideFilm, LucideHome, LucideMessageCircle, LucideSearch } from "lucide-react";
+import { CircleUserRound, LucideBadgePlus, LucideBell, LucideFilm, LucideHome, LucideMessageCircle, LucideSearch } from "lucide-react";
 
 export const leftSidebarItems = [
   {
@@ -25,6 +25,10 @@ export const leftSidebarItems = [
     icon: LucideBadgePlus,
     text: 'Create',
     url: '/create'
+  }, {
+    icon: CircleUserRound,
+    text: 'Profile',
+    url: '/profile'
   }
 ];
 

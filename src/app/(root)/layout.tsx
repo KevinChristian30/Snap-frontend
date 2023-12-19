@@ -9,9 +9,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <IsAuthenticated className="relative flex">
+    <IsAuthenticated className="relative flex min-h-full">
       <LeftSidebar />
-      {children}
+      <div className="grow-[1] mx-8 bg-blue-500">
+        {children}
+      </div>
       <RightSidebar />
     </IsAuthenticated>
   );
