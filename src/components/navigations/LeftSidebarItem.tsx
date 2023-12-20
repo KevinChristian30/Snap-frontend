@@ -11,8 +11,8 @@ const LeftSidebarItem = (props: ILeftSidebarProps) => {
 
   return (
     <div className="flex items-center justify-center lg:justify-start gap-2 rounded-md p-4 hover:cursor-pointer hover:bg-gray-200">
-      <Icon className="h-6 w-6" />
-      <p className="font-bold hidden lg:block">{text}</p>
+      <Icon className="h-6 w-6 text-black" />
+      <p className="font-bold hidden lg:block text-black">{text}</p>
     </div>
   );
 };

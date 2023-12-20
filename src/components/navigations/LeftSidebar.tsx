@@ -42,15 +42,21 @@ export const items: MenuProps["items"] = [
 
 const LeftSidebar = (props: ILeftSidebarProps) => {
   return (
-    <div className="border-right-gray sticky left-0 top-0 hidden h-screen w-[100px] overflow-y-auto flex-col justify-between p-2 lg:w-[250px] md:flex">
-      <div className="flex items-center gap-2 p-4 hover:cursor-pointer">
-        <Icons.logo className="h-8 w-8" />
-        <p className="hidden text-xl font-bold lg:block">Snap</p>
-      </div>
+    <div className="border-right-gray sticky left-0 top-0 hidden h-screen w-[100px] flex-col justify-between overflow-y-auto p-2 md:flex lg:w-[250px]">
+      <Link href={"/"} className="no-underline">
+        <div className="flex items-center gap-2 p-4 hover:cursor-pointer">
+          <Icons.logo className="h-8 w-8 text-black" />
+          <p className="hidden text-xl font-bold lg:block text-black">Snap</p>
+        </div>
+      </Link>
 
       <div className="flex flex-col gap-2">
         {leftSidebarItems.map((item) => {
-          return <LeftSidebarItem Icon={item.icon} text={item.text} />;
+          return (
+            <Link href={item.url} className="no-underline">
+              <LeftSidebarItem Icon={item.icon} text={item.text} />
+            </Link>
+          );
         })}
       </div>
 
