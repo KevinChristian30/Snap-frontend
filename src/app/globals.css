@@ -32,6 +32,17 @@
   );
 }
 
+.bg-wavy {
+  background-color: #e3e3e3;
+  opacity: 0.8;
+  background-image: repeating-radial-gradient(
+      circle at 0 0,
+      transparent 0,
+      #e3e3e3 40px
+    ),
+    repeating-linear-gradient(#5d12d255, #5d12d2);
+}
+
 .border-right-gray {
   border-right: 1px solid gray;
 }

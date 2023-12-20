@@ -14,7 +14,8 @@ interface IIsAuthenticatedProps extends React.HTMLAttributes<HTMLDivElement> {
 const IsAuthenticated = (props: IIsAuthenticatedProps) => {
   const { children } = props;
   const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<ResponseDTO<CurrentUserResponseDTO | null, string[]>>();
+  const [response, setResponse] =
+    useState<ResponseDTO<CurrentUserResponseDTO | null, string[]>>();
   const router = useRouter();
 
   const validateToken = async () => {
@@ -25,6 +26,8 @@ const IsAuthenticated = (props: IIsAuthenticatedProps) => {
 
     if (!response.successful) {
       router.push("/sign-in");
+    } else if (!response.successPayload?.is_email_verified) {
+      router.push("/confirm-email");
     }
 
     setResponse(response);
@@ -34,7 +37,17 @@ const IsAuthenticated = (props: IIsAuthenticatedProps) => {
     validateToken();
   }, []);
 
-  return <>{loading || !(response?.successful) ? <Loading /> : <div {...props}>{children}</div>}</>;
+  return (
+    <>
+      {loading ||
+      !response?.successful ||
+      !response.successPayload?.is_email_verified ? (
+        <Loading />
+      ) : (
+        <div {...props}>{children}</div>
+      )}
+    </>
+  );
 };
 
 export default IsAuthenticated;
