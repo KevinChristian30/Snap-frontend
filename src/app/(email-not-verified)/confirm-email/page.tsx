@@ -6,26 +6,35 @@ import { useAppSelector } from "@/redux/store";
 import { NumberOutlined, SendOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Typography } from "antd";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signOut as signOutReducer } from "@/redux/features/auth-slice";
+import { useRouter } from "next/navigation";
 
 const gap = 24;
 
 const Page = () => {
   const [delay, setDelay] = useState<number>(60);
   const currentUser = useAppSelector((state) => state.authSlice.value);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     const interval = setInterval(() => {
       setDelay((delay) => delay - 1);
     }, 1000);
 
-    console.log(currentUser);
-
     return () => clearInterval(interval);
   }, []);
 
   const resendCode = () => {
     setDelay(60);
-  }
+  };
+
+  const signOut = () => {
+    dispatch(signOutReducer());
+    localStorage.removeItem("token");
+    router.push("/sign-in");
+  };
 
   return (
     <div className="bg-wavy flex min-h-screen w-full items-center justify-center">
@@ -48,10 +57,8 @@ const Page = () => {
               placeholder="Code"
               size="large"
               prefix={<NumberOutlined />}
-              type="email"
             />
           </Form.Item>
-          <Spacer height={gap} />
           <Button
             type="primary"
             htmlType="submit"
@@ -59,10 +66,14 @@ const Page = () => {
             size="large"
             icon={<SendOutlined />}
           >
-            Send Code
+            Submit Code
           </Button>
           <Button type="link" loading={delay > 0} onClick={resendCode}>
             Resend Code {delay > 0 && `(${delay}s)`}
+          </Button>
+          <Spacer height={gap} />
+          <Button type="default" block onClick={signOut}>
+            Sign Out
           </Button>
         </Form>
       </div>
