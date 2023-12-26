@@ -11,9 +11,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <IsAuthenticated className="relative flex min-h-full">
+    <IsAuthenticated
+      className="relative flex min-h-full"
+      config={{ emailMustBeVerified: true }}
+    >
       <LeftSidebar />
-      <div className="grow-[1] mx-0 md:mx-8">
+      <div className="mx-0 grow-[1] md:mx-8">
         <Topbar />
         {children}
         <Bottombar />
