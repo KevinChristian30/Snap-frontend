@@ -7,13 +7,14 @@ import {
   GanttChartSquare,
   LucideMenu,
   LucideSettings,
+  LogOut,
 } from "lucide-react";
 import { leftSidebarItems } from "@/constants";
 import Link from "next/link";
 
 interface ILeftSidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const items: MenuProps["items"] = [
+const items: MenuProps["items"] = [
   {
     key: "1",
     label: (
@@ -38,6 +39,14 @@ export const items: MenuProps["items"] = [
       </Link>
     ),
   },
+  {
+    key: "4",
+    label: (
+      <Link href={"/sign-out"}>
+        <LeftSidebarItem Icon={LogOut} text="Sign Out" />
+      </Link>
+    ),
+  },
 ];
 
 const LeftSidebar = (props: ILeftSidebarProps) => {
@@ -46,7 +55,7 @@ const LeftSidebar = (props: ILeftSidebarProps) => {
       <Link href={"/"} className="no-underline">
         <div className="flex items-center gap-2 p-4 hover:cursor-pointer">
           <Icons.logo className="h-8 w-8 text-black" />
-          <p className="hidden text-xl font-bold lg:block text-black">Snap</p>
+          <p className="hidden text-xl font-bold text-black lg:block">Snap</p>
         </div>
       </Link>
 
