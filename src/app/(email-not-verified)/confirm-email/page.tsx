@@ -11,6 +11,7 @@ import { signOut as signOutReducer } from "@/redux/features/auth-slice";
 import { useRouter } from "next/navigation";
 import AuthenticationService from "@/service/AuthenticationService";
 import ResponseDTO from "@/dto/Response.dto";
+import EmailConfirmationCodeVerificationRequestDTO from "@/dto/request/EmailConfirmationCodeVerificationRequest.dto";
 
 const gap = 24;
 const requestCodeDelay = 120;
@@ -63,8 +64,29 @@ const Page = () => {
     router.push("/sign-in");
   };
 
-  const submitCode = (code: string) => {
-    console.log(code);
+  const submitCode = async (code: string) => {
+    const response: ResponseDTO<null, string[]> =
+      await AuthenticationService.confirmEmail(
+        new EmailConfirmationCodeVerificationRequestDTO(code),
+      );
+
+      if (!response.successful) {
+        api.error({
+          message: "Something went wrong",
+          description: response.failurePayload[0] ? response.failurePayload[0] : "Please try again.",
+          placement: "top",
+        });
+      } else {
+        localStorage.removeItem("token");
+
+        api.success({
+          message: "Email verified",
+          description: "Hang on tight, please sign in again.",
+          placement: "top",
+          duration: 2,
+          onClose: () => {router.push("/")}
+        });
+      }
   };
 
   return (
