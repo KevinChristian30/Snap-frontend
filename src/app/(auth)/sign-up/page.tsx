@@ -5,7 +5,12 @@ import Spacer from "@/components/utils/Spacer";
 import ResponseDTO from "@/dto/Response.dto";
 import SignUpRequestDTO from "@/dto/request/SignUpRequest.dto";
 import AuthenticationService from "@/service/AuthenticationService";
-import { IdcardOutlined, KeyOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  IdcardOutlined,
+  KeyOutlined,
+  MailOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -40,8 +45,9 @@ const Page = () => {
   };
 
   const signUp = async (dto: SignUpRequestDTO) => {
-    const authenticationService: AuthenticationService = new AuthenticationService();
-    
+    const authenticationService: AuthenticationService =
+      new AuthenticationService();
+
     setLoading(true);
     const response: ResponseDTO<null, string[]> =
       await authenticationService.signUp(dto);
