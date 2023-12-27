@@ -22,6 +22,8 @@ export default class AuthenticationService extends BaseService {
   }
 
   async signUp(dto: SignUpRequestDTO): Promise<ResponseDTO<null, string[]>> {
+    console.log(dto);
+
     let response: ResponseDTO<null, string[]> = new ResponseDTO(false, null, []);
     try {
       response.successPayload = await this._axios.post('/auth/sign-up', dto);
