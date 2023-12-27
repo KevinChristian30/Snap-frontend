@@ -25,15 +25,16 @@ const Page = () => {
   const [api, contextHolder] = notification.useNotification();
 
   const requestCode = async () => {
-    const authenticationService: AuthenticationService = new AuthenticationService(localStorage.getItem(localStorageKeys.token));
+    const authenticationService: AuthenticationService =
+      new AuthenticationService(localStorage.getItem(localStorageKeys.token));
 
-    const response: ResponseDTO<null, null> =
+    const response: ResponseDTO<null, string[]> =
       await authenticationService.requestCode();
+
     if (!response.successful) {
       api.error({
         message: `Couldn't Send Email`,
-        description:
-          "Code request is too often, please wait a bit before sending another one.",
+        description: response.failurePayload[0] ? response.failurePayload[0] : "Somewhing went wrong",
         placement: "top",
       });
     } else {

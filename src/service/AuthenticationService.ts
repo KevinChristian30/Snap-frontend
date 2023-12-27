@@ -1,11 +1,9 @@
-import URL from "@/constants/url";
 import ResponseDTO from "@/dto/Response.dto";
 import EmailConfirmationCodeVerificationRequestDTO from "@/dto/request/EmailConfirmationCodeVerificationRequest.dto";
 import SignInRequestDTO from "@/dto/request/SignInRequest.dto";
 import SignUpRequestDTO from "@/dto/request/SignUpRequest.dto";
 import CurrentUserResponseDTO from "@/dto/response/CurrentUserResponse.dto";
 import SignInResponseDTO from "@/dto/response/SignInResponse.dto";
-import axios from "axios";
 import BaseService from "./BaseService";
 
 export default class AuthenticationService extends BaseService {
@@ -50,14 +48,14 @@ export default class AuthenticationService extends BaseService {
     return response;
   }
 
-  async requestCode(): Promise<ResponseDTO<null, null>> {
-    let response: ResponseDTO<null, null> = new ResponseDTO(false, null, null);
+  async requestCode(): Promise<ResponseDTO<null, string[]>> {
+    let response: ResponseDTO<null, string[]> = new ResponseDTO(false, null, []);
     try {
       const axiosResponse = await this._axios.get('/v1/auth/confirm-email');
-
       response.successful = true;
     } catch (error: any) {
       response.successful = false;
+      response.failurePayload = response.failurePayload = error.response && error.response.data && error.response.data.errors ? error.response.data.errors : ["Something went wrong"];
     }
 
     return response;
