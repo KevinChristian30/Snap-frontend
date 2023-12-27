@@ -57,4 +57,42 @@ export default class AuthenticationService {
 
     return response;
   }
+
+  static async requestCode(): Promise<ResponseDTO<null, null>> {
+    const url = URL.baseURL + '/v1/auth/confirm-email';
+
+    let response: ResponseDTO<null, null> = new ResponseDTO(false, null, null);
+    try {
+      const axiosResponse = await axios.get(url, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+
+      response.successful = true;
+    } catch (error: any) {
+      response.successful = false;
+    }
+
+    return response;
+  }
+
+  // static async confirmEmail(): Promise<ResponseDTO<null, null>> {
+  //   const url = URL.baseURL + '/v1/auth/confirm-email';
+
+  //   let response: ResponseDTO<null, null> = new ResponseDTO(false, null, null);
+  //   try {
+  //     const axiosResponse = await axios.post(url, {
+  //       headers: {
+  //         'Authorization': `Bearer ${localStorage.getItem("token")}`
+  //       }
+  //     });
+
+  //     response.successful = true;
+  //   } catch (error: any) {
+  //     response.successful = false;
+  //   }
+
+  //   return response;
+  // }
 }
