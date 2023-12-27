@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 const Page = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   useEffect(() => {
     localStorage.removeItem(localStorageKeys.token);

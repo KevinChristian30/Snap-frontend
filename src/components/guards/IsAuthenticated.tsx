@@ -25,7 +25,7 @@ const IsAuthenticated = (props: IIsAuthenticatedProps) => {
   const [response, setResponse] =
     useState<ResponseDTO<CurrentUserResponseDTO | null, string[]>>();
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const validateToken = async () => {
     const authenticationService: AuthenticationService =

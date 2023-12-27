@@ -20,7 +20,7 @@ const requestCodeDelay = 120;
 const Page = () => {
   const [delay, setDelay] = useState<number>(requestCodeDelay);
   const currentUser = useAppSelector((state) => state.authSlice.value);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const router = useRouter();
   const [api, contextHolder] = notification.useNotification();
 
