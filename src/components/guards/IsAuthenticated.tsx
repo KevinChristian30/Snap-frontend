@@ -8,10 +8,11 @@ import React, { ReactNode, useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import { useDispatch } from "react-redux";
 import { signIn } from "@/redux/features/auth-slice";
+import { localStorageKeys } from "@/constants";
 
 interface IIsAuthenticatedConfig {
   emailMustBeVerified: boolean;
-};
+}
 
 interface IIsAuthenticatedProps extends React.HTMLAttributes<HTMLDivElement> {
   children: ReactNode | ReactNode[];
@@ -27,21 +28,27 @@ const IsAuthenticated = (props: IIsAuthenticatedProps) => {
   const dispatch = useDispatch();
 
   const validateToken = async () => {
+    const authenticationService: AuthenticationService =
+      new AuthenticationService(localStorage.getItem(localStorageKeys.token));
+
     setLoading(true);
     const response: ResponseDTO<CurrentUserResponseDTO | null, string[]> =
-      await AuthenticationService.getCurrentUser();
+      await authenticationService.getCurrentUser();
     setLoading(false);
 
     if (!response.successful) {
       router.push("/sign-in");
       return;
-    } 
+    }
 
     if (response.successPayload) {
       dispatch(signIn(response.successPayload));
     }
 
-    if (config.emailMustBeVerified && !response.successPayload?.is_email_verified) {
+    if (
+      config.emailMustBeVerified &&
+      !response.successPayload?.is_email_verified
+    ) {
       router.push("/confirm-email");
     }
 
@@ -56,7 +63,8 @@ const IsAuthenticated = (props: IIsAuthenticatedProps) => {
     <>
       {loading ||
       !response?.successful ||
-      (config.emailMustBeVerified && !response.successPayload?.is_email_verified) ? (
+      (config.emailMustBeVerified &&
+        !response.successPayload?.is_email_verified) ? (
         <Loading />
       ) : (
         <div {...props}>{children}</div>

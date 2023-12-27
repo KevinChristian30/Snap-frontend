@@ -40,9 +40,11 @@ const Page = () => {
   };
 
   const signUp = async (dto: SignUpRequestDTO) => {
+    const authenticationService: AuthenticationService = new AuthenticationService();
+    
     setLoading(true);
     const response: ResponseDTO<null, string[]> =
-      await AuthenticationService.signUp(dto);
+      await authenticationService.signUp(dto);
     setLoading(false);
 
     if (response.successful) {
