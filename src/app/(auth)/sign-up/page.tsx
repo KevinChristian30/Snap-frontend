@@ -5,7 +5,12 @@ import Spacer from "@/components/utils/Spacer";
 import ResponseDTO from "@/dto/Response.dto";
 import SignUpRequestDTO from "@/dto/request/SignUpRequest.dto";
 import AuthenticationService from "@/service/AuthenticationService";
-import { KeyOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  IdcardOutlined,
+  KeyOutlined,
+  MailOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -40,9 +45,12 @@ const Page = () => {
   };
 
   const signUp = async (dto: SignUpRequestDTO) => {
+    const authenticationService: AuthenticationService =
+      new AuthenticationService();
+
     setLoading(true);
     const response: ResponseDTO<null, string[]> =
-      await AuthenticationService.signUp(dto);
+      await authenticationService.signUp(dto);
     setLoading(false);
 
     if (response.successful) {
@@ -67,6 +75,7 @@ const Page = () => {
               new SignUpRequestDTO(
                 values.email,
                 values.firstName,
+                values.username,
                 values.password,
                 values.confirmPassword,
               ),
@@ -99,6 +108,19 @@ const Page = () => {
               placeholder="First Name"
               size="large"
               prefix={<UserOutlined />}
+              type="text"
+            />
+          </Form.Item>
+          <Form.Item
+            name="username"
+            label="Username"
+            className="w-full"
+            rules={[{ required: true, message: "Username is required" }]}
+          >
+            <Input
+              placeholder="Username"
+              size="large"
+              prefix={<IdcardOutlined />}
               type="text"
             />
           </Form.Item>

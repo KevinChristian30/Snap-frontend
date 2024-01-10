@@ -19,8 +19,7 @@
     "nextjs-toploader": "^1.6.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-redux": "^9.0.4",
-    "redux-persist": "^6.0.0"
+    "react-redux": "^9.0.4"
   },
   "devDependencies": {
     "@types/node": "^20",

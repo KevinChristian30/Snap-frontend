@@ -4,7 +4,7 @@ import React from "react";
 
 const Bottombar = () => {
   return (
-    <div className="sticky bottom-0 flex justify-around px-4 py-2 md:hidden border-top-gray">
+    <div className="fixed w-full bottom-0 flex justify-around px-4 py-2 md:hidden border-top-gray">
       {bottombarItems.map((item) => {
         return (
           <Link href={item.url}>

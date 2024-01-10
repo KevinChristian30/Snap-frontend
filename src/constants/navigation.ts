@@ -1,4 +1,4 @@
-import { CircleUserRound, LucideBadgePlus, LucideFilm, LucideHeart, LucideHome, LucideMessageCircle, LucideSearch } from "lucide-react";
+import { BadgeCheck, CircleUserRound, KeyRound, LogOut, LucideBadgePlus, LucideFilm, LucideHeart, LucideHome, LucideMessageCircle, LucideSearch, Pencil } from "lucide-react";
 
 export const leftSidebarItems = [
   {
@@ -65,5 +65,25 @@ export const bottombarItems = [
     icon: CircleUserRound,
     text: 'Profile',
     url: '/profile'
+  }
+];
+
+export const settingItems = [
+  {
+    icon: Pencil,
+    text: 'Edit Profile',
+    url: '/settings/profile'
+  }, {
+    icon: KeyRound,
+    text: 'Change Password',
+    url: '/settings/change-password'
+  }, {
+    icon: BadgeCheck,
+    text: 'Get Verified',
+    url: '/settings/verification'
+  }, {
+    icon: LogOut,
+    text: 'Sign Out',
+    url: '/sign-out'
   }
 ]

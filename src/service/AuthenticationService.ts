@@ -1,18 +1,16 @@
-import URL from "@/constants/url";
 import ResponseDTO from "@/dto/Response.dto";
+import EmailConfirmationCodeVerificationRequestDTO from "@/dto/request/EmailConfirmationCodeVerificationRequest.dto";
 import SignInRequestDTO from "@/dto/request/SignInRequest.dto";
 import SignUpRequestDTO from "@/dto/request/SignUpRequest.dto";
 import CurrentUserResponseDTO from "@/dto/response/CurrentUserResponse.dto";
 import SignInResponseDTO from "@/dto/response/SignInResponse.dto";
-import axios from "axios";
+import BaseService from "./BaseService";
 
-export default class AuthenticationService {
-  static async signIn(dto: SignInRequestDTO): Promise<ResponseDTO<SignInResponseDTO | null, string[]>> {
-    const url = URL.baseURL + '/auth/sign-in';
-
+export default class AuthenticationService extends BaseService {
+  async signIn(dto: SignInRequestDTO): Promise<ResponseDTO<SignInResponseDTO | null, string[]>> {
     let response: ResponseDTO<SignInResponseDTO | null, string[]> = new ResponseDTO(false, null, []);
     try {
-      const data = await axios.post(url, dto);
+      const data = await this._axios.post("/auth/sign-in", dto);
       response.successPayload = new SignInResponseDTO(data.data.token);
       response.successful = true;
     } catch (error: any) {
@@ -23,12 +21,12 @@ export default class AuthenticationService {
     return response;
   }
 
-  static async signUp(dto: SignUpRequestDTO): Promise<ResponseDTO<null, string[]>> {
-    const url = URL.baseURL + '/auth/sign-up';
+  async signUp(dto: SignUpRequestDTO): Promise<ResponseDTO<null, string[]>> {
+    console.log(dto);
 
     let response: ResponseDTO<null, string[]> = new ResponseDTO(false, null, []);
     try {
-      response.successPayload = await axios.post(url, dto);
+      response.successPayload = await this._axios.post('/auth/sign-up', dto);
       response.successful = true;
     } catch (error: any) {
       response.failurePayload = error.response && error.response.data && error.response.data.errors ? error.response.data.errors : ["Something went wrong"];
@@ -38,16 +36,10 @@ export default class AuthenticationService {
     return response;
   }
 
-  static async getCurrentUser(): Promise<ResponseDTO<CurrentUserResponseDTO | null, string[]>> {
-    const url = URL.baseURL + '/v1/auth/me';
-
+  async getCurrentUser(): Promise<ResponseDTO<CurrentUserResponseDTO | null, string[]>> {
     let response: ResponseDTO<CurrentUserResponseDTO | null, string[]> = new ResponseDTO(false, null, []);
     try {
-      const axiosResponse = await axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-      });
+      const axiosResponse = await this._axios.get('/v1/auth/me');
 
       response.successPayload = axiosResponse.data;
       response.successful = true;
@@ -58,41 +50,29 @@ export default class AuthenticationService {
     return response;
   }
 
-  static async requestCode(): Promise<ResponseDTO<null, null>> {
-    const url = URL.baseURL + '/v1/auth/confirm-email';
-
-    let response: ResponseDTO<null, null> = new ResponseDTO(false, null, null);
+  async requestCode(): Promise<ResponseDTO<null, string[]>> {
+    let response: ResponseDTO<null, string[]> = new ResponseDTO(false, null, []);
     try {
-      const axiosResponse = await axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
-      });
-
+      const axiosResponse = await this._axios.get('/v1/auth/confirm-email');
       response.successful = true;
     } catch (error: any) {
       response.successful = false;
+      response.failurePayload = response.failurePayload = error.response && error.response.data && error.response.data.errors ? error.response.data.errors : ["Something went wrong"];
     }
 
     return response;
   }
 
-  // static async confirmEmail(): Promise<ResponseDTO<null, null>> {
-  //   const url = URL.baseURL + '/v1/auth/confirm-email';
+  async confirmEmail(dto: EmailConfirmationCodeVerificationRequestDTO): Promise<ResponseDTO<null, string[]>> {
+    let response: ResponseDTO<null, string[]> = new ResponseDTO(false, null, []);
+    try {
+      const axiosResponse = await this._axios.post('/v1/auth/confirm-email', dto);
+      response.successful = true;
+    } catch (error: any) {
+      response.failurePayload = error.response && error.response.data && error.response.data.errors ? error.response.data.errors : ["Something went wrong"];
+      response.successful = false;
+    }
 
-  //   let response: ResponseDTO<null, null> = new ResponseDTO(false, null, null);
-  //   try {
-  //     const axiosResponse = await axios.post(url, {
-  //       headers: {
-  //         'Authorization': `Bearer ${localStorage.getItem("token")}`
-  //       }
-  //     });
-
-  //     response.successful = true;
-  //   } catch (error: any) {
-  //     response.successful = false;
-  //   }
-
-  //   return response;
-  // }
+    return response;
+  }
 }

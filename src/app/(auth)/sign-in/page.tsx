@@ -2,11 +2,17 @@
 
 import Icons from "@/components/Icons";
 import Spacer from "@/components/utils/Spacer";
+import { localStorageKeys } from "@/constants";
 import ResponseDTO from "@/dto/Response.dto";
 import SignInRequestDTO from "@/dto/request/SignInRequest.dto";
 import SignInResponseDTO from "@/dto/response/SignInResponse.dto";
 import AuthenticationService from "@/service/AuthenticationService";
-import { GoogleOutlined, KeyOutlined, LoginOutlined, MailOutlined } from "@ant-design/icons";
+import {
+  GoogleOutlined,
+  KeyOutlined,
+  LoginOutlined,
+  MailOutlined,
+} from "@ant-design/icons";
 import { Button, Form, Input, Typography, notification } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -33,17 +39,23 @@ const Page = () => {
       description: "Hang on tight, we're redirecting you.",
       placement: "top",
       duration: 1,
-      onClose: () => {router.push('/');}
+      onClose: () => {
+        router.push("/");
+      },
     });
   };
 
   const signIn = async (dto: SignInRequestDTO) => {
+    const authenticationService: AuthenticationService =
+      new AuthenticationService();
+
     setLoading(true);
-    const response: ResponseDTO<SignInResponseDTO | null, string[]> = await AuthenticationService.signIn(dto);
+    const response: ResponseDTO<SignInResponseDTO | null, string[]> =
+      await authenticationService.signIn(dto);
     setLoading(false);
 
     if (response.successful && response.successPayload) {
-      localStorage.setItem("token", response.successPayload.token);
+      localStorage.setItem(localStorageKeys.token, response.successPayload.token);
       openSignInSucessfulNotification();
     } else {
       openSignInFailedNotification();
@@ -59,7 +71,9 @@ const Page = () => {
         <Form
           layout="vertical"
           className="flex w-full flex-col items-center"
-          onFinish={(values) => signIn(new SignInRequestDTO(values.email, values.password))}
+          onFinish={(values) =>
+            signIn(new SignInRequestDTO(values.email, values.password))
+          }
           disabled={loading}
         >
           <Form.Item
@@ -101,7 +115,7 @@ const Page = () => {
           >
             Sign In
           </Button>
-          <Button type="link" loading={loading}>
+          <Button type="link" loading={loading} href="/forgot-password">
             Forgot Password
           </Button>
           <Spacer height={gap} />

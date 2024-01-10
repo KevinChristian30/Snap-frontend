@@ -6,7 +6,12 @@ type InitialState = {
 }
 
 const initialState: InitialState = {
-  value: new CurrentUserResponseDTO("", [], "", false)
+  value: {
+    email: "",
+    is_email_verified: false,
+    roles: [],
+    username: ""
+  }
 }
 
 export const auth = createSlice({
@@ -18,7 +23,12 @@ export const auth = createSlice({
     },
     signIn: (_, action: PayloadAction<CurrentUserResponseDTO>) => {
       return {
-        value: action.payload
+        value: {
+          email: action.payload.email,
+          is_email_verified: action.payload.is_email_verified,
+          roles: action.payload.roles,
+          username: action.payload.username
+        }
       }
     }
   }
