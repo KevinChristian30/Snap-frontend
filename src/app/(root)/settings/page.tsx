@@ -5,10 +5,10 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="flex flex-col py-8 px-4 gap-8">
+    <div className="flex flex-col gap-8">
       <h1>Settings</h1>
 
-      <div className="">
+      <div> 
         {settingItems.map((item) => {
           return (
             <Link href={item.url} className="no-underline text-black">
