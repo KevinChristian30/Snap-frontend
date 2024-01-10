@@ -115,7 +115,7 @@ const Page = () => {
           >
             Sign In
           </Button>
-          <Button type="link" loading={loading}>
+          <Button type="link" loading={loading} href="/forgot-password">
             Forgot Password
           </Button>
           <Spacer height={gap} />
