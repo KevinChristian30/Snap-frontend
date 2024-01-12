@@ -1,7 +1,7 @@
-import CheckoutRequestDTO from "@/dto/request/CheckoutRequestDTO";
+import CheckoutRequestDTO from "@/dto/request/CheckoutRequest.dto";
 import BaseService from "./BaseService";
 import ResponseDTO from "@/dto/Response.dto";
-import CheckoutResponseDTO from "@/dto/response/CheckoutResponseDTO";
+import CheckoutResponseDTO from "@/dto/response/CheckoutResponse,dto";
 
 export default class PaymentService extends BaseService {
   async checkout(dto: CheckoutRequestDTO): Promise<ResponseDTO<CheckoutResponseDTO | null, string[]>> {

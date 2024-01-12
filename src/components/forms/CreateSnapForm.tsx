@@ -1,15 +1,16 @@
+import MediaFileResponseDTO from "@/dto/response/MediaFileResponse.dto";
 import React from "react";
 
 interface ICreateSnapFormProps {
-  videoURL: string;
+  mediaFile: MediaFileResponseDTO;
 }
 
 const CreateSnapForm = (props: ICreateSnapFormProps) => {
-  const { videoURL } = props;
+  const { mediaFile } = props;
 
   return (
     <video
-      src={videoURL}
+      src={mediaFile.fileURL}
       height={480}
       width={270}
       autoPlay
