@@ -38,7 +38,7 @@ const Page = () => {
       message: `Login Successful`,
       description: "Hang on tight, we're redirecting you.",
       placement: "top",
-      duration: 1,
+      duration: 0.1,
       onClose: () => {
         router.push("/");
       },

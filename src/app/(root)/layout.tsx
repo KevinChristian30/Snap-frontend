@@ -18,7 +18,9 @@ export default function RootLayout({
       <LeftSidebar />
       <div className="mx-0 grow-[1] md:mx-8">
         <Topbar />
-        {children}
+        <div className="mx-4 my-8">
+          {children}
+        </div>
         <Bottombar />
       </div>
       <RightSidebar />
