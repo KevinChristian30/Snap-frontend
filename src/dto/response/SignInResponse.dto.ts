@@ -1,3 +1,3 @@
 export default class SignInResponseDTO {
-  constructor(public token: string) { }
+  constructor(public token: string) {}
 }
