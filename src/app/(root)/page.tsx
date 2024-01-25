@@ -3,7 +3,7 @@
 import { localStorageKeys } from "@/constants";
 import ResponseDTO from "@/dto/Response.dto";
 import CheckoutRequestDTO from "@/dto/request/CheckoutRequest.dto";
-import CheckoutResponseDTO from "@/dto/response/CheckoutResponse,dto";
+import CheckoutResponseDTO from "@/dto/response/CheckoutResponse.dto";
 import PaymentService from "@/service/PaymentService";
 import { Button } from "antd";
 import { useRouter } from "next/navigation";
